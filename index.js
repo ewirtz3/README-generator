@@ -33,7 +33,6 @@ inquirer
         "collaborator(s)",
         "third-party assets requiring attribution",
         "tutorials",
-        "no",
       ],
       name: "credits",
     },
@@ -46,16 +45,50 @@ inquirer
     {
       type: "input",
       message:
-        "Optional: Add guidelines for how to contribute to the project. Visit (https://www.contributor-covenant.org/) for inspiration. Press enter for none.",
+        "Optional: Add guidelines for how to contribute to the project. Visit (https://www.contributor-covenant.org/) for inspiration.",
       name: "contributing",
     },
     {
       type: "input",
       message:
-        "Optional: If you have tests for your application, give users examples of how to run them here. Press enter for none.",
+        "Optional: If you have tests for your application, give users examples of how to run them here.",
       name: "tests",
     },
   ])
   .then(function (userInput) {
     console.log(userInput);
+    return userInput;
+  })
+  .catch((error) => {
+    if (error) {
+      console.log(error);
+    }
   });
+
+if (userInput[4].includes("collaborator(s)")) {
+  inquirer.prompt([
+    {
+      type: "input",
+      message:
+        "For any collaborators, please include their GitHub username here:",
+      name: "collabInput",
+    },
+  ]);
+} else if (userInput[4].includes("third-party assets requiring attribution")) {
+  inquirer.prompt([
+    {
+      type: "input",
+      message:
+        "For any third-party assets, please list the creator(s) and links to their online presence here:",
+      name: "thirdPInput",
+    },
+  ]);
+} else if (userInput[4].includes("tutorials")) {
+  inquirer.prompt([
+    {
+      type: "input",
+      message: "For any tutorials used, please include links here:",
+      name: "tutorialsInput",
+    },
+  ]);
+}
