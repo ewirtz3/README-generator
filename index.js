@@ -65,30 +65,49 @@ inquirer
     }
   });
 
-if (userInput[4].includes("collaborator(s)")) {
-  inquirer.prompt([
-    {
-      type: "input",
-      message:
-        "For any collaborators, please include their GitHub username here:",
-      name: "collabInput",
-    },
-  ]);
-} else if (userInput[4].includes("third-party assets requiring attribution")) {
-  inquirer.prompt([
-    {
-      type: "input",
-      message:
-        "For any third-party assets, please list the creator(s) and links to their online presence here:",
-      name: "thirdPInput",
-    },
-  ]);
-} else if (userInput[4].includes("tutorials")) {
-  inquirer.prompt([
-    {
-      type: "input",
-      message: "For any tutorials used, please include links here:",
-      name: "tutorialsInput",
-    },
-  ]);
-}
+const secondRound = (userInput) => {
+  if (userInput[4].includes("collaborator(s)")) {
+    const collaborators = [];
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          message:
+            "For any collaborators, please include their GitHub username here:",
+          name: "collabInput",
+        },
+      ])
+      .then((response) => {
+        collaborators.push(response);
+      });
+  } else if (
+    userInput[4].includes("third-party assets requiring attribution")
+  ) {
+    const thirdParties = [];
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          message:
+            "For any third-party assets, please list the creator(s) and links to their online presence here:",
+          name: "thirdPInput",
+        },
+      ])
+      .then((response) => {
+        thirdParties.push(response);
+      });
+  } else if (userInput[4].includes("tutorials")) {
+    const tutorials = [];
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          message: "For any tutorials used, please include links here:",
+          name: "tutorialsInput",
+        },
+      ])
+      .then((response) => {
+        tutorials.push(response);
+      });
+  }
+};
