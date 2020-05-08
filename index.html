@@ -1,0 +1,11 @@
+const readMe = `# ${userInput.projectName} ## Description
+${userInput.description} Link to project: ${userInput.URL} ## Table of Contents
+* [Installation](#installation) * [Usage](#usage) * [Credits](#credits) *
+[License](#license) ## Installation ${userInput.installation} ## Usage
+${userInput.usage} ## Credits Collaborators' GitHub Usernames:
+${userInput.collaborators} Third-Party Assets Used: ${userInput.thirdParties}
+Tutorials Used: ${userInput.tutorials} ## License ${userInput.license} ##
+Contributors ${userInput.contributing} ## Tests ${userInput.tests} If you have
+any questions, please contact me at GitHub username ${userInput.username}`;
+console.log(readMe); fs.writeFile("README.md", readMe, function (err) { if (err)
+{ return console.log(err); } console.log("README created!"); });

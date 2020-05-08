@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const fs = require("fs");
 
 inquirer
   .prompt([
@@ -9,9 +10,19 @@ inquirer
     },
     {
       type: "input",
+      message: "What is the name of your project/application?",
+      name: "projectName",
+    },
+    {
+      type: "input",
       message:
         "Please describe your project in detail. Include why you created the application, what the application does, what technologies were used, and any challenges you encountered during development.",
       name: "description",
+    },
+    {
+      type: "input",
+      message: "What is your application URL?",
+      name: "URL",
     },
     {
       type: "input",
@@ -26,20 +37,26 @@ inquirer
       name: "usage",
     },
     {
-      type: "checkbox",
+      type: "input",
       message:
-        "Did you utilize any of the following to accomplish your project?",
-      choices: [
-        "collaborator(s)",
-        "third-party assets requiring attribution",
-        "tutorials",
-      ],
-      name: "credits",
+        "For any collaborators, please include their GitHub username here:",
+      name: "collaborators",
     },
     {
       type: "input",
       message:
-        "Please click on the following link to choose a license: (https://choosealicense.com/). Once you know what you need, type your license(s) here:",
+        "For any third-party assets used that require attribution, please list the creator(s) and links to their online presence here:",
+      name: "thirdParties",
+    },
+    {
+      type: "input",
+      message: "For any tutorials used, please include links here:",
+      name: "tutorials",
+    },
+    {
+      type: "input",
+      message:
+        "Please visit the following link to choose a license: (https://choosealicense.com/). Once you know what you need, type your license(s) here:",
       name: "license",
     },
     {
@@ -57,57 +74,56 @@ inquirer
   ])
   .then(function (userInput) {
     console.log(userInput);
-    return userInput;
+    writeReadMe();
   })
-  .catch((error) => {
-    if (error) {
-      console.log(error);
+  .catch((err) => {
+    if (err) {
+      console.error(err);
+      throw err;
     }
   });
 
-const secondRound = (userInput) => {
-  if (userInput[4].includes("collaborator(s)")) {
-    const collaborators = [];
-    inquirer
-      .prompt([
-        {
-          type: "input",
-          message:
-            "For any collaborators, please include their GitHub username here:",
-          name: "collabInput",
-        },
-      ])
-      .then((response) => {
-        collaborators.push(response);
-      });
-  } else if (
-    userInput[4].includes("third-party assets requiring attribution")
-  ) {
-    const thirdParties = [];
-    inquirer
-      .prompt([
-        {
-          type: "input",
-          message:
-            "For any third-party assets, please list the creator(s) and links to their online presence here:",
-          name: "thirdPInput",
-        },
-      ])
-      .then((response) => {
-        thirdParties.push(response);
-      });
-  } else if (userInput[4].includes("tutorials")) {
-    const tutorials = [];
-    inquirer
-      .prompt([
-        {
-          type: "input",
-          message: "For any tutorials used, please include links here:",
-          name: "tutorialsInput",
-        },
-      ])
-      .then((response) => {
-        tutorials.push(response);
-      });
+const readMe = `# ${userInput.projectName} 
+
+## Description
+${userInput.description} 
+Link to project: ${userInput.URL} 
+<img src="https://img.shields.io/github/last-commit/${userInput.username}/${userInput.projectName}?style=for-the-badge"/>
+
+## Table of Contents
+* [Installation](#installation) 
+* [Usage](#usage) 
+* [Credits](#credits) 
+* [License](#license) 
+
+## Installation 
+${userInput.installation} 
+
+## Usage
+${userInput.usage} 
+
+## Credits 
+Collaborators' GitHub Usernames: ${userInput.collaborators} 
+Third-Party Assets Used: ${userInput.thirdParties}
+Tutorials Used: ${userInput.tutorials} 
+
+## License 
+${userInput.license} 
+
+##Contributors 
+${userInput.contributing} 
+
+## Tests 
+${userInput.tests} 
+
+If you have any questions, please contact me at GitHub username ${userInput.username}`;
+
+console.log(readMe);
+
+const writeReadMe = fs.writeFile("README.md", readMe, function (err) {
+  if (err) {
+    console.error(err);
+    throw err;
   }
-};
+  console.log("README created!");
+});
