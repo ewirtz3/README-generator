@@ -1,5 +1,6 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
+const axios = require("axios");
 
 const askUser = function () {
   inquirer
@@ -11,7 +12,8 @@ const askUser = function () {
       },
       {
         type: "input",
-        message: "What is the name of your project/application?",
+        message:
+          "What is the name of your project/application? (Must match repo name in GitHub)",
         name: "projectName",
       },
       {
@@ -75,7 +77,9 @@ const askUser = function () {
     ])
     .then(function (userInput) {
       console.log(userInput);
+      const userName = userInput.username;
       writeReadMe(userInput);
+      getProfilePic(userName);
     })
     .catch(function (err) {
       if (err) {
@@ -87,11 +91,25 @@ const askUser = function () {
 
 askUser();
 
+const getProfilePic = function (userName) {
+  const queryUrl = `https://api.github.com/users/${userName}`;
+  axios.get(queryUrl).then(function (res) {
+    const profilePic = `<img src="${res.data.avatar_url}" width="300" height="400">`;
+    fs.appendFile("README.md", profilePic, function (err) {
+      if (err) {
+        throw err;
+      }
+      console.log("profile pic added!");
+    });
+  });
+};
+
 const createReadMe = function (userInput) {
   return `# ${userInput.projectName}
 
 ## Description
 ${userInput.description}
+
 Link to project: ${userInput.URL}
 
 <img src="https://img.shields.io/github/last-commit/${userInput.username}/${userInput.projectName}?style=for-the-badge"/>
@@ -124,7 +142,9 @@ ${userInput.contributing}
 ## Tests
 ${userInput.tests}
 
-If you have any questions, please contact me at GitHub username ${userInput.username}`;
+If you have any questions, please contact me at GitHub username <a href="https://github.com/${userInput.username}">${userInput.username}</a>
+
+`;
 };
 
 const writeReadMe = function (userInput) {
