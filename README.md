@@ -1,9 +1,9 @@
 # README-generator
 
 ## Description
-test
+Utilizing Inquirer, Axios, and File System node packages, I created a dynamic README generator. The generator file takes in user input regarding their current project, and then assembles the information given by the user and received from the query URL into an organized markdown file. This allows the user to create a legible, formatted README for any and all projects.
 
-Link to project: test
+Link to project: https://github.com/ewirtz3/README-generator
 
 <img src="https://img.shields.io/github/last-commit/ewirtz3/README-generator?style=for-the-badge"/>
 
@@ -14,26 +14,26 @@ Link to project: test
 * [License](#license)
 
 ## Installation
-test
+There are no steps for installation.
 
 ## Usage
-test
+Open the file index.js in your Terminal. Type in node index.js in your Terminal. Follow the prompts one by one, providing information specific to your project. Receive a README!
 
 ## Credits
-Collaborators' GitHub Usernames: test
+Collaborators' GitHub Usernames: none
 
-Third-Party Assets Used: test
+Third-Party Assets Used: none
 
-Tutorials Used: test
+Tutorials Used: none
 
 ## License
-test
+MIT License Copyright(c) 2020 Emily Wirtz 
 
 ## Contributors
-test
+none
 
 ## Tests
-test
+none
 
 If you have any questions, please contact me at GitHub username <a href="https://github.com/ewirtz3">ewirtz3</a>
 

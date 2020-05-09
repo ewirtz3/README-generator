@@ -76,7 +76,6 @@ const askUser = function () {
       },
     ])
     .then(function (userInput) {
-      console.log(userInput);
       const userName = userInput.username;
       writeReadMe(userInput);
       getProfilePic(userName);
@@ -99,7 +98,6 @@ const getProfilePic = function (userName) {
       if (err) {
         throw err;
       }
-      console.log("profile pic added!");
     });
   });
 };
@@ -153,7 +151,8 @@ const writeReadMe = function (userInput) {
       console.error(err);
       throw err;
     }
-    console.log("README created!");
+    console.log(
+      "README created! Please delete any empty sections directly in the file."
+    );
   });
-  console.log("this works");
 };
