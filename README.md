@@ -12,7 +12,6 @@ Link to project: https://github.com/ewirtz3/README-generator
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Credits](#credits)
 - [License](#license)
 
 ## Installation
