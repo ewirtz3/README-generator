@@ -2,9 +2,7 @@
 
 ## Description
 
-Utilizing Inquirer, Axios, and File System node packages, I created a dynamic README generator. The generator file takes in user input regarding their current project, and then assembles the information given by the user and received from the query URL into an organized markdown file. This allows the user to create a legible, formatted README for any and all projects.
-
-Link to project: https://github.com/ewirtz3/README-generator
+Utilizing Inquirer, Axios, and File System node packages, I created a dynamic command-line README generator. The generator file takes in user input regarding their current project, and then assembles the information given by the user and received from the query URL into an organized markdown file. This allows the user to create a legible, formatted README for any and all projects.
 
 <img src="https://img.shields.io/github/last-commit/ewirtz3/README-generator?style=for-the-badge"/>
 
